@@ -58,18 +58,18 @@ $breakpoints-min: (
 );
 
 @mixin res($size, $type: max) {
-    $breakpoint: if(
-        $type==min,
-        map.get($breakpoints-min, $size),
-        map.get($breakpoints, $size)
-    );
+    $breakpoint: map.get($breakpoints, $size);
+
+    @if $type == min {
+        $breakpoint: map.get($breakpoints-min, $size);
+    }
 
     @if $breakpoint {
-        @if $type==max {
+        @if $type == max {
             @media (max-width: $breakpoint) {
                 @content;
             }
-        } @else if $type==min {
+        } @else if $type == min {
             @media (min-width: $breakpoint) {
                 @content;
             }
