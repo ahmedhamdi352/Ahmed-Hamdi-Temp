@@ -35,7 +35,7 @@ export default function TestimonialSection() {
                             <div className="icon">
                                 <i className="icon-quote"></i>
                             </div>
-                            <p className="text-body-2 text_white mb_21">"{item.text}"</p>
+                            <p className="text-body-2 text_white mb_21">&ldquo;{item.text}&rdquo;</p>
                             <div className="athor">
                                 <h5 className="name text_white mb_4 font-4">
                                     <a href={item.author_link} className="link">
@@ -109,7 +109,7 @@ export function Testimonial_swip1() {
                                 <div className="icon">
                                     <i className="icon-quote"></i>
                                 </div>
-                                <p className="text-body-2 text_white mb_21">"{item.text}"</p>
+                                <p className="text-body-2 text_white mb_21">&ldquo;{item.text}&rdquo;</p>
                                 <div className="athor">
                                     <h5 className="name text_white mb_4 font-4">
                                         <a href={item.author_link} className="link">

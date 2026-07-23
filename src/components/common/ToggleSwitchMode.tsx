@@ -53,8 +53,14 @@ export default function ToggleSwitchMode() {
     };
 
     return (
-        <div className={`toggle-switch-mode ${isDarkMode ? "active" : ""}`} onClick={toggleMode}>
+        <button
+            type="button"
+            className={`toggle-switch-mode ${isDarkMode ? "active" : ""}`}
+            onClick={toggleMode}
+            aria-label={isDarkMode ? "Switch to light theme" : "Switch to dark theme"}
+            aria-pressed={isDarkMode}
+        >
             <i className="icon-Sun" />
-        </div>
+        </button>
     );
 }

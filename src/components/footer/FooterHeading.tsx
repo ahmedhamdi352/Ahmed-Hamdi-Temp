@@ -1,4 +1,5 @@
-import React from "react";
+import ContactIconLinks from "@components/common/ContactIconLinks";
+
 export default function FooterHeading() {
     return (
         <div className="heading-section mb_44">
@@ -17,30 +18,11 @@ export default function FooterHeading() {
                 <h3 className="text_white title fw-5"> Work Together</h3>
             </div>
 
-            <div className="heading-title">
-                <div className="mb_12">
-                    <h4 className="text_white fw-4 mb_4">
-                        <a href="mailto:themesflat@gmail.com" className="hover-underline-link link">
-                            themesflat@gmail.com
-                        </a>
-                    </h4>
-                    <p className="text-caption-2 text_secondary-color font-3">Based in San Francisco, CA</p>
+            <div className="heading-title contact-identity">
+                <div className="contact-details mb_12">
+                    <p className="text-caption-2 text_secondary-color font-3">Dubai, United Arab Emirates</p>
                 </div>
-
-                <ul className="list-icon d-flex">
-                    <li>
-                        <a href="#" className="icon-LinkedIn"></a>
-                    </li>
-                    <li>
-                        <a href="#" className="icon-GitHub"></a>
-                    </li>
-                    <li>
-                        <a href="#" className="icon-X"></a>
-                    </li>
-                    <li>
-                        <a href="#" className="icon-dribbble"></a>
-                    </li>
-                </ul>
+                <ContactIconLinks />
             </div>
         </div>
     );

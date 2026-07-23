@@ -7,7 +7,6 @@ export default function ContactForm() {
         name: "",
         email: "",
         message: "",
-        budget: "",
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -17,15 +16,15 @@ export default function ContactForm() {
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        console.log("Form submitted:", formData);
-    };
-
-    const handleSelectBudget = (value: string) => {
-        setFormData((prev) => ({ ...prev, budget: value }));
+        const subject = encodeURIComponent(`Portfolio enquiry from ${formData.name}`);
+        const body = encodeURIComponent(
+            `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`,
+        );
+        window.location.href = `mailto:ahmedhamdi352@gmail.com?subject=${subject}&body=${body}`;
     };
 
     return (
-        <form className="form-contact bs-light-mode">
+        <form className="form-contact bs-light-mode" onSubmit={handleSubmit}>
             <div className="d-grid gap_24 mb_24">
                 <fieldset>
                     <input id="name" type="text" placeholder="Your name" name="name" value={formData.name} onChange={handleChange} required />
@@ -46,26 +45,9 @@ export default function ContactForm() {
                 </fieldset>
             </div>
 
-            <ul className="list-tag">
-                {["< $1,000", "$1,000 - $5,000", "$5,000 - $10,000", "$10,000 - 20,000", "< $20,000"].map((item) => (
-                    <li key={item}>
-                        <a
-                            href="#"
-                            className={`text_white text-body-1 font-3 ${formData.budget === item ? "active" : ""}`}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                handleSelectBudget(item);
-                            }}
-                        >
-                            {item}
-                        </a>
-                    </li>
-                ))}
-            </ul>
-
             <div className="button-submit">
                 <button className="tf-btn style-1 animate-hover-btn" type="submit">
-                    <span>Get Started !</span>
+                    <span>Send Message</span>
                 </button>
             </div>
 

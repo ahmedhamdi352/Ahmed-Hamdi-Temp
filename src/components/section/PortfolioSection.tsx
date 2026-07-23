@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import { portfolioItems } from "@data/portfolioFeature";
 
 const PortfolioSection: React.FC = () => {
@@ -6,7 +7,7 @@ const PortfolioSection: React.FC = () => {
         <section id="portfolio" className="section-portfolio style-1 spacing-5 section">
             <div className="heading-section mb_42">
                 <div className="tag-heading text-uppercase text-label font-3 letter-spacing-1 mb_34">Portfolio</div>
-                <h3 className="text_white fw-5 split-text effect-blur-fade">Featured Projects</h3>
+                <h3 className="text_white fw-5 split-text effect-blur-fade">Selected Work</h3>
             </div>
 
             <div className="tabs-content-wrap tf-grid-layout md-col-2">
@@ -25,16 +26,16 @@ export interface PortfolioItemProp {
 export const PortfolioItem = ({ className = "" }: PortfolioItemProp) => {
     return (
         <>
-            {portfolioItems.map((item, index) => (
-                <div className={`portfolio-item  ${className}`} key={index}>
-                    <a href={item.image} data-fancybox="gallery" className="img-style">
-                        <img src={item.image} alt="portfolio" loading="lazy" />
-                        <div className="tag font-3 text-label text-uppercase fw-6 letter-spacing-1">{item.tag}</div>
-                    </a>
+            {portfolioItems.slice(0, 3).map((item) => (
+                <div className={`portfolio-item  ${className}`} key={item.slug}>
+                    <Link href={item.route} className="img-style" aria-label={`View ${item.title} case study`}>
+                        <img src={item.image} alt={item.title} loading="lazy" />
+                        <div className="tag font-3 text-label text-uppercase fw-6 letter-spacing-1">{item.category}</div>
+                    </Link>
                     <h5 className="title font-4 text_white">
-                        <a href="#" className="link">
+                        <Link href={item.route} className="link">
                             {item.title}
-                        </a>
+                        </Link>
                     </h5>
                     <div className="item-shape">
                         <img src="/assets/images/item/small-comet.png" alt="item" />
@@ -51,9 +52,8 @@ export const PortfolioStack = () => {
             <div id="portfolio" className="section-portfolio spacing-1 section">
                 <div className="heading-section mb_42">
                     <div className="tag-heading text-uppercase text-label font-3 letter-spacing-1 mb_34">Portfolio</div>
-                    <h3 className="text_white fw-5 split-text effect-blur-fade">Featured Projects</h3>
+                    <h3 className="text_white fw-5 split-text effect-blur-fade">Selected Work</h3>
                 </div>
-
                 <div className="tabs-content-wrap">
                     <div className="stack-element">
                         <PortfolioItem className="element" />

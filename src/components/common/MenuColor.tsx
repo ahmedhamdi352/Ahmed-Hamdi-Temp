@@ -122,7 +122,7 @@ export function BackgroundChoose({ targetBlank = false }: { targetBlank?: boolea
         }
 
         items.forEach((item, index) => {
-            item.addEventListener("click", (e) => {
+            item.addEventListener("click", () => {
                 const videoFile = featureBackgrounds[index].videoFile;
                 if (videoFile) {
                     const bodyOverlay = document.querySelector(".body-overlay");
@@ -147,7 +147,7 @@ export function BackgroundChoose({ targetBlank = false }: { targetBlank?: boolea
                 item.replaceWith(newItem);
             });
         };
-    }, []);
+    }, [targetBlank]);
 
     return (
         <div className="features-background">

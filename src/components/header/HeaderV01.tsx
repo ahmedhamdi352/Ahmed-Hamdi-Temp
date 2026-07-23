@@ -91,8 +91,8 @@ export function AvatarBox() {
                 <Image src="/assets/images/user/avatar-2.webp" width={68} height={68} alt="avatar" />
             </div>
             <div className="info">
-                <h6 className="font-4 mb_4">ZenG</h6>
-                <div className="text-label text-uppercase fw-6 text_primary-color font-3  letter-spacing-1">AI Developer</div>
+                <h6 className="font-4 mb_4">Ahmed Hamdi</h6>
+                <div className="text-label text-uppercase fw-6 text_primary-color font-3 letter-spacing-1">Senior Full Stack Engineer</div>
             </div>
         </div>
     );
@@ -100,7 +100,7 @@ export function AvatarBox() {
 
 export default function HeaderV01({ className, navMenuClass, type, showMobileMenu = true }: HeaderProps) {
     const uniqueId = useId();
-    const popupId = `menu-${uniqueId}`;
+    const popupId = `menu-${uniqueId.replace(/:/g, "")}`;
     useSidebarClick(popupId);
     HeaderSticky();
 

@@ -9,8 +9,8 @@ $fontIcon: "icomoon";
     --Black: #000000;
     --White: #ffffff;
     --body-text: #666666;
-    --Primary: #45e77b;
-    --Secondary: #266f5d;
+    --Primary: #f5772e;
+    --Secondary: #8c3f13;
     --Text-light: #fff;
     --Text-primary: #121212;
     --Text-secondary: #616161;
@@ -30,7 +30,7 @@ $fontIcon: "icomoon";
     );
 }
 [data-color-primary="color-primary-1"] {
-    --Primary: #45e77b;
+    --Primary: #f5772e;
 }
 [data-color-primary="color-primary-2"] {
     --Primary: #f8c736;
