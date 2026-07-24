@@ -1,6 +1,7 @@
 "use client";
 
 import { resumeItems, ResumeSectionProps } from "@data/resume";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 export default function ResumeSection({ className = "", onPreviewChange }: ResumeSectionProps) {
@@ -76,29 +77,46 @@ export default function ResumeSection({ className = "", onPreviewChange }: Resum
                     >
                         <span className="point" />
                         <div className="education-item">
-                            <div className="content">
-                                <h5 className="font-4 mb_4">
-                                    <button
-                                        type="button"
-                                        className="link resume-title-button"
-                                        aria-pressed={selectedIndex === idx}
-                                        onFocus={() => {
-                                            if (isInlineMode) {
+                            <div className="resume-company">
+                                <div className="resume-company-logo" aria-hidden={!item.companyLogo}>
+                                    {item.companyLogo ? (
+                                        <Image
+                                            src={item.companyLogo}
+                                            alt={`${item.company} logo`}
+                                            width={52}
+                                            height={52}
+                                            sizes="52px"
+                                        />
+                                    ) : (
+                                        <span className="text-label fw-6 font-3" aria-hidden="true">
+                                            {item.companyInitials}
+                                        </span>
+                                    )}
+                                </div>
+                                <div className="content">
+                                    <h5 className="font-4 mb_4">
+                                        <button
+                                            type="button"
+                                            className="link resume-title-button"
+                                            aria-pressed={selectedIndex === idx}
+                                            onFocus={() => {
+                                                if (isInlineMode) {
+                                                    selectItem(idx);
+                                                } else {
+                                                    setSelectedIndex(idx);
+                                                    onPreviewChange?.(item);
+                                                }
+                                            }}
+                                            onClick={(event) => {
+                                                event.stopPropagation();
                                                 selectItem(idx);
-                                            } else {
-                                                setSelectedIndex(idx);
-                                                onPreviewChange?.(item);
-                                            }
-                                        }}
-                                        onClick={(event) => {
-                                            event.stopPropagation();
-                                            selectItem(idx);
-                                        }}
-                                    >
-                                        {item.title}
-                                    </button>
-                                </h5>
-                                <span className="text-body-1 font-3">{item.company}</span>
+                                            }}
+                                        >
+                                            {item.title}
+                                        </button>
+                                    </h5>
+                                    <span className="text-body-1 font-3">{item.company}</span>
+                                </div>
                             </div>
                             <div className="date text-caption-1 text_white font-3">{item.date}</div>
                             <div className="item-shape spotlight">

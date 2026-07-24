@@ -30,7 +30,7 @@ export default function Home() {
                 <div className="tf-container">
                     <div className="row">
                         <div className="offset-xxl-4 col-xxl-7 offset-xl-4 col-xl-7">
-                            <HeaderV01 type="header-type-2" />
+                            <HeaderV01 type="header-type-2" stickyCopy />
                         </div>
                     </div>
                 </div>

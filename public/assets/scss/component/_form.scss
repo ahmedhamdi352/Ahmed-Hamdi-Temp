@@ -4,6 +4,7 @@ form {
     position: relative;
     z-index: 30;
     textarea,
+    select,
     input[type="text"],
     input[type="password"],
     input[type="datetime"],
@@ -41,6 +42,15 @@ form {
             border-color: var(--Text-light);
         }
     }
+    select {
+        appearance: none;
+        cursor: pointer;
+
+        option {
+            color: var(--Text-primary);
+            background-color: var(--Bg-dark);
+        }
+    }
     button,
     input[type="button"],
     input[type="reset"],
@@ -65,6 +75,170 @@ form {
     margin-bottom: 44px;
     overflow: hidden;
     z-index: 1;
+
+    .field-error {
+        margin: 7px 0 0;
+        color: var(--Primary);
+        font-size: 13px;
+        line-height: 1.5;
+    }
+
+    .form-status {
+        position: relative;
+        z-index: 1;
+        min-height: 24px;
+        margin-top: 18px;
+
+        p {
+            margin: 0;
+        }
+    }
+
+    .form-status-success {
+        display: grid;
+        grid-template-columns: 56px minmax(0, 1fr);
+        align-items: center;
+        gap: 14px;
+        padding: 14px 16px;
+        overflow: hidden;
+        color: var(--Text-light);
+        border-top: 1px solid rgba(245, 119, 46, 0.32);
+        border-radius: 16px;
+        background: linear-gradient(
+            123.51deg,
+            rgba(245, 119, 46, 0.12) -20%,
+            rgba(204, 235, 235, 0.02) 100%
+        );
+        animation: successReveal 0.45s ease both;
+    }
+
+    .success-flight {
+        position: relative;
+        display: flex;
+        width: 56px;
+        height: 48px;
+        align-items: center;
+        justify-content: center;
+        color: var(--Primary);
+
+        &::before {
+            position: absolute;
+            top: 50%;
+            left: 1px;
+            width: 24px;
+            height: 1px;
+            content: "";
+            background: linear-gradient(90deg, transparent, var(--Primary));
+            transform-origin: right center;
+            animation: successTrail 0.7s 0.08s ease-out both;
+        }
+    }
+
+    .success-envelope {
+        position: relative;
+        z-index: 1;
+        width: 38px;
+        filter: drop-shadow(0 7px 12px rgba(245, 119, 46, 0.22));
+        animation: envelopeFlight 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    .success-check {
+        position: absolute;
+        right: -1px;
+        bottom: 0;
+        z-index: 2;
+        display: flex;
+        width: 21px;
+        height: 21px;
+        align-items: center;
+        justify-content: center;
+        color: var(--Text-primary);
+        border-radius: 50%;
+        background-color: var(--Primary);
+        box-shadow: 0 0 0 4px rgba(245, 119, 46, 0.12);
+        animation: successCheck 0.42s 0.62s cubic-bezier(0.2, 1.7, 0.4, 1) both;
+
+        svg {
+            width: 14px;
+        }
+    }
+
+    .success-spark {
+        position: absolute;
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background-color: var(--Primary);
+        opacity: 0;
+        animation: successSpark 0.55s ease-out both;
+    }
+
+    .success-spark-1 {
+        top: 4px;
+        right: 7px;
+        animation-delay: 0.48s;
+    }
+
+    .success-spark-2 {
+        top: 11px;
+        right: 0;
+        width: 3px;
+        height: 3px;
+        animation-delay: 0.56s;
+    }
+
+    .success-spark-3 {
+        right: 10px;
+        bottom: 2px;
+        width: 3px;
+        height: 3px;
+        animation-delay: 0.64s;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .form-status-success,
+        .success-flight::before,
+        .success-envelope,
+        .success-check,
+        .success-spark {
+            animation: none;
+        }
+
+        .success-spark {
+            opacity: 1;
+        }
+    }
+
+    @include res(sm) {
+        .form-status-success {
+            grid-template-columns: 48px minmax(0, 1fr);
+            gap: 10px;
+            padding: 12px;
+        }
+
+        .success-flight {
+            width: 48px;
+        }
+    }
+
+    .form-status-error {
+        color: var(--Primary);
+    }
+
+    .contact-honeypot {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+
+    button:disabled {
+        cursor: wait;
+        opacity: 0.7;
+    }
     .heading-title {
         flex-wrap: wrap;
         gap: 8px 12px;
@@ -96,5 +270,73 @@ form {
         .list-tag a {
             padding: 8px 12px;
         }
+    }
+}
+
+@keyframes successReveal {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes envelopeFlight {
+    0% {
+        opacity: 0;
+        transform: translate(-12px, 8px) rotate(8deg) scale(0.82);
+    }
+
+    45% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(4px, -3px) rotate(-7deg) scale(1);
+    }
+}
+
+@keyframes successTrail {
+    from {
+        opacity: 0;
+        transform: translateX(-8px) scaleX(0);
+    }
+
+    to {
+        opacity: 0.8;
+        transform: translateX(0) scaleX(1);
+    }
+}
+
+@keyframes successCheck {
+    from {
+        opacity: 0;
+        transform: scale(0.35) rotate(-20deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes successSpark {
+    0% {
+        opacity: 0;
+        transform: translate(-5px, 5px) scale(0);
+    }
+
+    50% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0.75;
+        transform: translate(2px, -2px) scale(1);
     }
 }

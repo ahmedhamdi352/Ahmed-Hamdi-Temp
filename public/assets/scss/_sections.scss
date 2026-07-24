@@ -362,6 +362,28 @@
     }
 }
 
+.case-study-stack {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 24px;
+    max-width: 760px;
+
+    .case-study-stack-group {
+        h3 {
+            margin: 0 0 8px;
+        }
+
+        p {
+            margin: 0;
+        }
+    }
+
+    @include res(sm) {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
+
 .case-study-cta {
     display: flex;
     align-items: center;

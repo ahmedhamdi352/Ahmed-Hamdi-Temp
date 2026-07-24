@@ -1,6 +1,8 @@
 export interface ResumeItem {
     title: string;
     company: string;
+    companyLogo?: string;
+    companyInitials: string;
     date: string;
     description: string;
     highlights: string[];
@@ -17,6 +19,8 @@ export const resumeItems: ResumeItem[] = [
     {
         title: "Senior Full Stack Engineer",
         company: "Dubai Police - Department of AI",
+        companyLogo: "/assets/images/companies/dubaipolicehq_logo.jpeg",
+        companyInitials: "DP",
         date: "Jul 2025 - Present",
         description: "Building secure AI-enabled platforms that connect chatbot experiences, internal services, dashboards, and operational workflows for enterprise government teams.",
         highlights: [
@@ -38,6 +42,8 @@ export const resumeItems: ResumeItem[] = [
     {
         title: "Senior Front-End Developer",
         company: "Apps Wave",
+        companyLogo: "/assets/images/companies/appswave_logo.jpeg",
+        companyInitials: "AW",
         date: "Jan 2024 - Jun 2025",
         description: "Delivered scalable web and mobile interfaces for enterprise and public-facing digital products with focus on usability, performance, and reusable UI patterns.",
         highlights: [
@@ -59,6 +65,8 @@ export const resumeItems: ResumeItem[] = [
     {
         title: "Senior Full Stack Developer",
         company: "Barq Systems",
+        companyLogo: "/assets/images/companies/barqsystems_logo.jpeg",
+        companyInitials: "BS",
         date: "Jan 2022 - Jan 2024",
         description: "Worked on full-stack applications across frontend, backend integrations, code quality, maintainability, and delivery workflows for business-critical platforms.",
         highlights: [
@@ -80,6 +88,8 @@ export const resumeItems: ResumeItem[] = [
     {
         title: "Front-End Developer",
         company: "Terkwaz Business Solution",
+        companyLogo: "/assets/images/companies/terkwaz_business_solutions_logo.jpeg",
+        companyInitials: "TB",
         date: "Sep 2020 - Jan 2022",
         description: "Built responsive frontend applications and translated product designs into production-ready interfaces for distributed teams and client projects.",
         highlights: [
@@ -101,8 +111,10 @@ export const resumeItems: ResumeItem[] = [
     {
         title: "Front-End / Full Stack Developer",
         company: "Cuisine Company",
+        companyInitials: "CC",
         date: "Jan 2018 - Sep 2020",
         description: "Built and maintained internal restaurant operations and POS workflows across frontend and backend layers to support daily business operations.",
+        companyLogo: "/assets/images/companies/cuisine-pos.jpeg",
         highlights: [
             "POS system workflows",
             "React and Redux frontend",
@@ -122,8 +134,10 @@ export const resumeItems: ResumeItem[] = [
     {
         title: "B.Sc. Computer & Information Sciences",
         company: "Ain Shams University",
+        companyInitials: "AS",
         date: "Sep 2013 - May 2017",
         description: "Academic foundation in computer science, software development, databases, information systems, and problem solving.",
+        companyLogo: "/assets/images/companies/ain-shams-university.jpegwhat do you",
         highlights: [
             "Computer science fundamentals",
             "Software development",

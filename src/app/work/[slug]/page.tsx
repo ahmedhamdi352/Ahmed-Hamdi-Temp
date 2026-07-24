@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import Layout from "@components/layout/Layout";
@@ -9,6 +10,18 @@ interface ProjectPageProps {
 
 export function generateStaticParams() {
     return portfolioItems.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+    const { slug } = await params;
+    const project = portfolioItems.find((item) => item.slug === slug);
+
+    if (!project) return {};
+
+    return {
+        title: `${project.title} — Ahmed Hamdi`,
+        description: project.shortDescription,
+    };
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
@@ -39,12 +52,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         </ul>
                     </header>
 
-                    <div className="case-study-visual" role="img" aria-label={`${project.title} sanitized visual placeholder`}>
-                        <span className="text-label text-uppercase font-3 letter-spacing-1 text_primary-color">Project visual</span>
-                        <h2 className="font-4 text_white">{project.title}</h2>
-                        <p className="text-body-2 text_muted-color font-3 mb_0">Sanitized interface preview placeholder</p>
-                    </div>
-
                     <section className="case-study-section">
                         <h2 className="font-4 text_white">Overview</h2>
                         <p className="text-body-1 text_muted-color font-3">{project.overview}</p>
@@ -65,14 +72,17 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                     </section>
                     <section className="case-study-section">
                         <h2 className="font-4 text_white">Technical Stack</h2>
-                        <ul className="case-study-tech-list">
-                            {project.tech.map((technology) => (
-                                <li key={technology} className="text-caption-1 text_white font-3">{technology}</li>
+                        <div className="case-study-stack">
+                            {project.technicalStack.map((group) => (
+                                <div key={group.label} className="case-study-stack-group">
+                                    <h3 className="text-label text-uppercase text_primary-color font-3 letter-spacing-1">{group.label}</h3>
+                                    <p className="text-body-1 text_muted-color font-3">{group.items.join(", ")}</p>
+                                </div>
                             ))}
-                        </ul>
+                        </div>
                     </section>
                     <section className="case-study-section">
-                        <h2 className="font-4 text_white">Challenges</h2>
+                        <h2 className="font-4 text_white">Technical / Product Challenges</h2>
                         <ul className="case-study-list text-body-1 text_muted-color font-3">
                             {project.challenges.map((challenge) => <li key={challenge}>{challenge}</li>)}
                         </ul>
@@ -81,6 +91,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
                         <h2 className="font-4 text_white">Outcome</h2>
                         <p className="text-body-1 text_muted-color font-3">{project.outcome}</p>
                     </section>
+
+                    <div className="case-study-visual" role="img" aria-label={`${project.title}, ${project.category}`}>
+                        <h2 className="font-4 text_white">{project.title}</h2>
+                        <p className="text-body-2 text_muted-color font-3 mb_0">{project.category}</p>
+                    </div>
 
                     <section className="case-study-cta bs-light-mode">
                         <div>

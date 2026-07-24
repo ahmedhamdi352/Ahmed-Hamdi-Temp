@@ -24,18 +24,6 @@ export default function ContactIconLinks({ className = "" }: ContactIconLinksPro
             </li>
             <li>
                 <a
-                    href="https://www.facebook.com/ahmed.2hamdi"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="Ahmed Hamdi on Facebook"
-                >
-                    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                        <path d="M14 8.5V7c0-.8.5-1 1-1h2V2.1c-.7-.1-1.8-.1-3.1-.1C10.8 2 9 3.8 9 7.2v1.3H6V13h3v9h4.5v-9h3.2l.5-4.5H14Z" />
-                    </svg>
-                </a>
-            </li>
-            <li>
-                <a
                     href="https://www.linkedin.com/in/ahmed-hamdi-226359174/"
                     className="icon-LinkedIn"
                     target="_blank"

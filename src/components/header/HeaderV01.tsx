@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useId } from "react";
+import { Dispatch, SetStateAction, useEffect, useId, useState } from "react";
 import NavMenu from "@components/nav-menu/NavMenu";
 import { initScrollLinks } from "@utils/scrollLink";
 
@@ -9,22 +9,22 @@ interface HeaderProps {
     navMenuClass?: string;
     type?: string;
     showMobileMenu?: boolean;
+    stickyCopy?: boolean;
 }
 
-export function HeaderSticky() {
+export function useStickyHeaderState() {
+    const [isStickyVisible, setIsStickyVisible] = useState(false);
+
     useEffect(() => {
         const header = document.querySelector(".header-fixed");
         if (!header) return;
 
-        let isFixed = false;
         const scrollThreshold = 350;
 
         const handleScroll = () => {
             const shouldBeFixed = window.scrollY >= scrollThreshold;
-            if (shouldBeFixed !== isFixed) {
-                header.classList.toggle("is-fixed", shouldBeFixed);
-                isFixed = shouldBeFixed;
-            }
+            header.classList.toggle("is-fixed", shouldBeFixed);
+            setIsStickyVisible(shouldBeFixed);
         };
 
         window.addEventListener("scroll", handleScroll, { passive: true });
@@ -34,9 +34,11 @@ export function HeaderSticky() {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
+
+    return isStickyVisible;
 }
 
-export function useSidebarClick(popupId: string) {
+export function useSidebarClick(popupId: string, setIsMenuOpen: Dispatch<SetStateAction<boolean>>) {
     useEffect(() => {
         const handleSidebar = (e: Event) => {
             const target = e.target as HTMLElement;
@@ -55,10 +57,12 @@ export function useSidebarClick(popupId: string) {
 
                 document.querySelectorAll(".popup-menu-mobile").forEach((el) => el.classList.remove("show"));
                 overlay.classList.remove("show");
+                setIsMenuOpen(false);
 
                 if (!isOpen) {
                     targetMenu.classList.add("show");
                     overlay.classList.add("show");
+                    setIsMenuOpen(true);
                 }
 
                 return;
@@ -66,12 +70,14 @@ export function useSidebarClick(popupId: string) {
 
             if (target.classList.contains("overlay-popup")) {
                 document.querySelectorAll(".popup-menu-mobile, .overlay-popup").forEach((el) => el.classList.remove("show"));
+                setIsMenuOpen(false);
                 return;
             }
 
             const navLink = target.closest(".nav_link") as HTMLElement | null;
             if (navLink) {
                 document.querySelectorAll(".popup-menu-mobile, .overlay-popup").forEach((el) => el.classList.remove("show"));
+                setIsMenuOpen(false);
                 return;
             }
         };
@@ -81,7 +87,7 @@ export function useSidebarClick(popupId: string) {
         return () => {
             document.removeEventListener("click", handleSidebar);
         };
-    }, [popupId]);
+    }, [popupId, setIsMenuOpen]);
 }
 
 export function AvatarBox() {
@@ -98,26 +104,66 @@ export function AvatarBox() {
     );
 }
 
-export default function HeaderV01({ className, navMenuClass, type, showMobileMenu = true }: HeaderProps) {
+export default function HeaderV01({ className, navMenuClass, type, showMobileMenu = true, stickyCopy = false }: HeaderProps) {
     const uniqueId = useId();
     const popupId = `menu-${uniqueId.replace(/:/g, "")}`;
-    useSidebarClick(popupId);
-    HeaderSticky();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMobileViewport, setIsMobileViewport] = useState(false);
+    const [isSmallViewport, setIsSmallViewport] = useState(false);
+    const isStickyVisible = useStickyHeaderState();
+    const isHeaderActive = isMobileViewport && (stickyCopy ? isStickyVisible : !isStickyVisible);
+    const isInlineNavActive = isHeaderActive && !isSmallViewport;
+    const isPopupNavActive = isHeaderActive && isSmallViewport && isMenuOpen;
+
+    useSidebarClick(popupId, setIsMenuOpen);
 
     useEffect(() => {
         initScrollLinks();
+
+        const mobileQuery = window.matchMedia("(max-width: 767px)");
+        const smallQuery = window.matchMedia("(max-width: 575px)");
+        const updateViewport = () => {
+            setIsMobileViewport(mobileQuery.matches);
+            setIsSmallViewport(smallQuery.matches);
+        };
+
+        updateViewport();
+        mobileQuery.addEventListener("change", updateViewport);
+        smallQuery.addEventListener("change", updateViewport);
+
+        return () => {
+            mobileQuery.removeEventListener("change", updateViewport);
+            smallQuery.removeEventListener("change", updateViewport);
+        };
     }, []);
 
     if (type === "header-type-2") {
         return (
-            <div className={`header-sidebar style-horizontal bs-light-mode  ${className}`}>
+            <div
+                className={`header-sidebar style-horizontal bs-light-mode  ${className}`}
+                aria-hidden={!isHeaderActive}
+                inert={isHeaderActive ? undefined : true}
+            >
                 <AvatarBox />
-                <NavMenu className={`style-2 list-icon`} />
-                <a className="menu-button show-menu-mobile d-sm-none link-no-action" data-target={`#${popupId}`} href="#">
+                <NavMenu className="style-2 list-icon" interactive={isInlineNavActive} />
+                <a
+                    className="menu-button show-menu-mobile d-sm-none link-no-action"
+                    data-target={`#${popupId}`}
+                    href="#"
+                    aria-label="Toggle navigation menu"
+                    aria-controls={popupId}
+                    aria-expanded={isMenuOpen}
+                    tabIndex={isHeaderActive && isSmallViewport ? undefined : -1}
+                >
                     <i className="icon-CirclesFour"></i>
                 </a>
-                <div className="popup-menu-mobile" id={popupId}>
-                    <NavMenu className={"style-3"} />
+                <div
+                    className="popup-menu-mobile"
+                    id={popupId}
+                    aria-hidden={!isPopupNavActive}
+                    inert={isPopupNavActive ? undefined : true}
+                >
+                    <NavMenu className="style-3" interactive={isPopupNavActive} />
                 </div>
             </div>
         );
@@ -138,8 +184,13 @@ export default function HeaderV01({ className, navMenuClass, type, showMobileMen
                                 <a className="menu-button show-menu-mobile d-lg-none link-no-action" data-target={`#${popupId}`} href="#">
                                     <i className="icon-CirclesFour"></i>
                                 </a>
-                                <div className="popup-menu-mobile" id={popupId}>
-                                    <NavMenu className={navMenuClass ?? "style-3"} />
+                                <div
+                                    className="popup-menu-mobile"
+                                    id={popupId}
+                                    aria-hidden={!isMenuOpen}
+                                    inert={isMenuOpen ? undefined : true}
+                                >
+                                    <NavMenu className={navMenuClass ?? "style-3"} interactive={isMenuOpen} />
                                 </div>
                             </>
                         )}

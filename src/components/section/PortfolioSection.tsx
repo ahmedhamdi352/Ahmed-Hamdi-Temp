@@ -37,6 +37,12 @@ export const PortfolioItem = ({ className = "" }: PortfolioItemProp) => {
                             {item.title}
                         </Link>
                     </h5>
+                    <p className="portfolio-summary text-body-2 text_muted-color font-3">
+                        {item.cardDescription}
+                    </p>
+                    <Link href={item.route} className="portfolio-cta text-body-2 font-3 fw-6">
+                        View Case Study
+                    </Link>
                     <div className="item-shape">
                         <img src="/assets/images/item/small-comet.png" alt="item" />
                     </div>

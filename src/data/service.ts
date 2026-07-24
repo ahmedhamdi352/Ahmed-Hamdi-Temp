@@ -7,22 +7,22 @@ export interface ServiceItem {
 export const services: ServiceItem[] = [
     {
         number: "01/",
-        title: "AI Chatbot Experiences",
-        description: "Web and mobile chatbot interfaces, guided service flows, feedback states, and backend AI integrations.",
+        title: "Full Stack Web Applications",
+        description: "I build production-ready web platforms from UI to backend integration — including dashboards, portals, workflows, authentication, and API-connected business systems.",
     },
     {
         number: "02/",
-        title: "Enterprise Dashboards",
-        description: "Back-office dashboards, analytics views, filters, reporting screens, and operational visibility for business teams.",
+        title: "AI Chatbot Experiences",
+        description: "I design and build chatbot interfaces that connect users with real services — including guided flows, response states, feedback handling, service actions, and backend AI integration.",
     },
     {
         number: "03/",
-        title: "Internal Service Platforms",
-        description: "Service hubs, request workflows, role-aware access, and secure internal tools for enterprise teams.",
+        title: "Enterprise Dashboards",
+        description: "I turn complex operational data into clear dashboards with filters, tables, charts, monitoring views, and reporting interfaces for business and support teams.",
     },
     {
         number: "04/",
-        title: "Full Stack Web Applications",
-        description: "React/Next.js frontends, APIs, authentication, integrations, and production-ready delivery.",
+        title: "Internal Service Platforms",
+        description: "I build secure internal portals and service hubs that help teams request services, track workflows, manage permissions, and access tools from one place.",
     },
 ];

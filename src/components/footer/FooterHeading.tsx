@@ -7,15 +7,15 @@ export default function FooterHeading() {
 
             <div className="title mb_40">
                 <h3 className="text_white fw-5 animationtext clip">
-                    Lets{" "}
+                    Let’s Build{" "}
                     <span className="tf-text s1 cd-words-wrapper text_primary-color">
-                        <span className="item-text is-visible">Design</span>
-                        <span className="item-text is-hidden">Create</span>
-                        <span className="item-text is-hidden">Craft</span>
-                    </span>{" "}
-                    Incredible
+                        <span className="item-text is-visible">Something Useful</span>
+                    </span>
                 </h3>
-                <h3 className="text_white title fw-5"> Work Together</h3>
+                <h3 className="text_white title fw-5">Together</h3>
+                <p className="text-body-1 text_muted-color font-3 mt_20 mb_0">
+                    Available for freelance projects, part-time engineering support, consulting, and selected senior opportunities.
+                </p>
             </div>
 
             <div className="heading-title contact-identity">

@@ -1,5 +1,6 @@
 import type { ResumeItem } from "@data/resume";
 import ContactIconLinks from "@components/common/ContactIconLinks";
+import Image from "next/image";
 
 interface UserBarProps {
     className?: string;
@@ -46,8 +47,27 @@ export default function UserBar({ className = "", activeResumeItem = null }: Use
             {activeResumeItem && (
                 <div className="resume-preview-panel" aria-live="polite">
                     <div className="resume-preview-header">
-                        <h5 className="font-4 text_white mb_8">{activeResumeItem.title}</h5>
-                        <div className="text-label fw-6 text_primary-color font-3 mb_8">{activeResumeItem.company}</div>
+                        <div className="resume-preview-company mb_16">
+                            <div className="resume-preview-company-logo">
+                                {activeResumeItem.companyLogo ? (
+                                    <Image
+                                        src={activeResumeItem.companyLogo}
+                                        alt={`${activeResumeItem.company} logo`}
+                                        width={64}
+                                        height={64}
+                                        sizes="64px"
+                                    />
+                                ) : (
+                                    <span className="text-label fw-6 font-3" aria-hidden="true">
+                                        {activeResumeItem.companyInitials}
+                                    </span>
+                                )}
+                            </div>
+                            <div className="text-label fw-6 text_primary-color font-3">
+                                {activeResumeItem.company}
+                            </div>
+                        </div>
+                        <h5 className="font-4 text_white mb_12">{activeResumeItem.title}</h5>
                         <span className="resume-preview-date text-caption-2 text_secondary-color font-3">
                             {activeResumeItem.date}
                         </span>

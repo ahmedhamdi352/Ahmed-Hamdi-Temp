@@ -7,15 +7,18 @@ interface EngagementProps {
 const engagementOptions = [
     {
         title: "Freelance Projects",
-        description: "For dashboards, internal tools, chatbot interfaces, and full-stack web platforms.",
+        description: "End-to-end delivery for dashboards, internal platforms, chatbot experiences, and production-ready web applications.",
+        cta: "Discuss a Project",
     },
     {
         title: "Part-Time Engineering Support",
-        description: "For teams that need senior frontend/full-stack delivery support without hiring full-time.",
+        description: "Senior engineering support for teams needing consistent delivery, architecture input, and hands-on implementation.",
+        cta: "Discuss Part-Time Support",
     },
     {
         title: "Technical Consulting",
-        description: "For architecture review, AI integration planning, frontend structure, and delivery guidance.",
+        description: "Architecture reviews, platform planning, AI integration strategy, and frontend modernization.",
+        cta: "Book a Consultation",
     },
 ] as const;
 
@@ -25,7 +28,7 @@ export default function EngagementSection({ className = "" }: EngagementProps) {
             <SpotlightEffect />
             <div className="heading-section mb_42">
                 <div className="tag-heading text-uppercase text-label font-3 letter-spacing-1 mb_30">
-                    Ways I Can Help
+                    Work With Me
                 </div>
                 <h3 className="text_white fw-5 split-text effect-blur-fade">Engagement Options</h3>
             </div>
@@ -37,7 +40,7 @@ export default function EngagementSection({ className = "" }: EngagementProps) {
                         <p className="engagement-description text-body-1 text_white font-3">{option.description}</p>
                         <div className="wrap-pricing">
                             <a href="#contact" className="tf-btn style-1 animate-hover-btn">
-                                <span>Discuss This</span>
+                                <span>{option.cta}</span>
                             </a>
                         </div>
                         <div className="item-shape spotlight">
